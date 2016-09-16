@@ -4,7 +4,7 @@
 
   addTag = function (open, close) {
     input = document.activeElement;
-    if (input.tagName == 'INPUT' || input.tagName == 'textarea') {
+    if (input.tagName == 'INPUT' || input.tagName == 'TEXTAREA') {
       selection = window.getSelection();
       start = input.selectionStart;
       finish = input.selectionStart + selection.toString().length;
