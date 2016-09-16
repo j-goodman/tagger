@@ -1,30 +1,61 @@
 (function(){
-  // window.alert('Tag shortcuts activated!\n Highlight the text you want tagged and tag it with: \n Italics: ctrl+i \n Bold: ctrl+b \n Quote: ctrl+q \n List: crtl+u \n List Item: ctrl+l');
+  window.alert('Tag shortcuts activated!\n\n Highlight the text you want tagged and tag it with: \n Italics: OPTION+I \n Bold: OPTION+B \n Quote: OPTION+Q \n List: OPTION+U \n List Item: OPTION+L \n Link: OPTION+A');
   var command = false;
 
-  document.onkeydown = function (event) {
-    var input;
+  addTag = function (open, close) {
+    input = document.activeElement;
+    if (input.tagName == 'INPUT' || input.tagName == 'textarea') {
+      selection = window.getSelection();
+      start = input.selectionStart;
+      finish = input.selectionStart + selection.toString().length;
+      input.value =
+      input.value.slice(0, start) +
+      open +
+      input.value.slice(start, finish) +
+      close +
+      input.value.slice(finish, input.value.length);
+    }
+    command = false;
+  };
 
-    if (event.key == 'Meta' || event.key == 'Control') {
+  addLink = function () {
+    var url;
+    url = window.prompt('Where do you want this link to lead?');
+    addTag('<a href="'+url+'" target="_blank">', '</a>');
+  };
+
+  document.onkeydown = function (event) {
+    var input; var selection; var start; var finish;
+
+    if (event.key == 'Control') {
       command = true;
-      console.log(command);
     }
 
-    if (event.key == 'i') {
-      if (command) {
-        input = document.activeElement;
-        if (input.tagName == 'INPUT' || input.tagName == 'textarea') {
-          console.log(window.getSelection().toString());
-          console.log(input.selectionStart);
-        }
+    if (command) {
+      switch (event.key) {
+        case 'i':
+          addTag('<em>', '</em>');
+          break;
+        case 'b':
+          addTag('<b>', '</b>');
+          break;
+        case 'q':
+          addTag('<q>', '</q>');
+          break;
+        case 'u':
+          addTag('<ul>', '</ul>');
+          break;
+        case 'l':
+          addTag('<li>', '</li>');
+          break;
+        case 'a':
+          addLink();
+          break;
       }
     }
   };
 
   document.onkeyup = function (event) {
-    if (event.key == 'Meta' || event.key == 'Control') {
-      command = false;
-      console.log(command);
-    }
+    command = false;
   };
 })();
