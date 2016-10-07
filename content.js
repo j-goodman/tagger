@@ -1,5 +1,5 @@
 (function(){
-  window.alert('Tag shortcuts activated!\n\n Highlight the text you want tagged and tag it with: \n Italics: OPTION+I \n Bold: OPTION+B \n Quote: OPTION+Q \n List: OPTION+U \n List Item: OPTION+L \n Link: OPTION+A');
+  window.alert('Tag shortcuts activated!\n\n Highlight the text you want tagged and tag it with: \n Italics: CONTROL+I \n Bold: CONTROL+B \n Quote: CONTROL+Q \n List: CONTROL+U \n List Item: CONTROL+L \n Link: CONTROL+A');
   var command = false;
 
   addTag = function (open, close) {
